@@ -1,5 +1,7 @@
 # Graph Neural Networks for Financial Systemic Risk — Reproduction & Edge-Ablation Study
 
+[![Verify CSV result tables](https://github.com/Sungjincude/gnn-systemic-risk-portfolio/actions/workflows/check-results.yml/badge.svg)](https://github.com/Sungjincude/gnn-systemic-risk-portfolio/actions/workflows/check-results.yml)
+
 A **portfolio research extension** of [*Predicting Systemic Risk in Financial Systems Using Deep Graph Learning*](https://doi.org/10.1016/j.iswa.2023.200240) (Balmaseda, Coronado & de Cadenas-Santiago, 2023). The original model architectures and data-processing pipeline belong to the original researchers; this repository is **not** the official implementation.
 
 This companion repository records (1) a validation-selected comparison of graph and non-graph classifiers for the European banking network and (2) a controlled five-seed pilot evaluating the sensitivity of GraphSAGE to training-time edge removal.
@@ -42,7 +44,7 @@ This experiment studies **training-time random graph augmentation**, **not** phy
 
 **Work documented here:** notebook/environment repair for newer library versions, validation-MCC checkpoint evaluation, comparison across three data splits, identification of replacement-sampling behavior, distinct-edge sampling and preflight verification, repeated-seed pilot, and comparative visualization. Results are an exploratory replication/extension, not a newly invented GNN architecture.
 
-This repository deliberately **does not redistribute** the original code or banking-network data. The original repository did not visibly provide an explicit code license when this portfolio package was prepared; its source should not be relicensed as one's own. The included experiment notebook imports the upstream code **from a separate local checkout**. This repository's new scripts and analysis files are distinct from that upstream code.
+This repository deliberately **does not redistribute** the original code or banking-network data. The original repository did not visibly provide an explicit code license when this portfolio package was prepared; its source should not be relicensed as one's own. The included **analysis notebook reads the published CSVs and does not need the upstream code**; only the original training experiments and the distinct-edge dataset extension require a separate checkout of the original implementation. This repository's new scripts and analysis files are distinct from that upstream code.
 
 ## Repository contents
 
