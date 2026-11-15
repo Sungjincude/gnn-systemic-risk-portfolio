@@ -1,4 +1,6 @@
-# Graph Neural Networks for Financial Systemic Risk — Reproduction & Edge-Ablation Study
+# Financial Systemic Risk GNN
+
+**Reproduction & GraphSAGE Edge-Ablation Study**
 
 [![Verify CSV result tables](https://github.com/Sungjincude/gnn-systemic-risk-portfolio/actions/workflows/check-results.yml/badge.svg)](https://github.com/Sungjincude/gnn-systemic-risk-portfolio/actions/workflows/check-results.yml)
 
