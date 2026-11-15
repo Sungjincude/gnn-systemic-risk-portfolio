@@ -1,0 +1,4 @@
+# Lightweight requirements for result verification and plotting
+numpy>=1.23,<3
+pandas>=1.5,<3
+matplotlib>=3.6,<4
