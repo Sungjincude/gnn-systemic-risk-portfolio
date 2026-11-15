@@ -4,7 +4,7 @@ A **portfolio research extension** of [*Predicting Systemic Risk in Financial Sy
 
 This companion repository records (1) a validation-selected comparison of graph and non-graph classifiers for the European banking network and (2) a controlled five-seed pilot evaluating the sensitivity of GraphSAGE to training-time edge removal.
 
-![GraphSAGE edge-removal pilot](figures/edge_ablation_comparison.png)
+![GraphSAGE edge-removal pilot](figures/edge_ablation_comparison.svg)
 
 ## Key results
 
@@ -15,6 +15,8 @@ This companion repository records (1) a validation-selected comparison of graph 
 | 10 — 8% / 2% / 90% | 0.460 | 59.42% | FNN: 0.463 |
 | 40 — 32% / 8% / 60% | 0.578 | 68.28% | GraphSAGE: 0.578 |
 | 75 — 60% / 15% / 25% | 0.629 | 72.10% | GraphSAGE: 0.629 |
+
+![Model comparison by data split](figures/european_model_comparison.svg)
 
 Source: [`results/european_validation_selected_all.csv`](results/european_validation_selected_all.csv). Saved checkpoints were ranked using **validation MCC** rather than choosing a winner using test accuracy/MCC. These configurations use different labeled-data splits and should not be interpreted as a controlled causal comparison.
 
@@ -45,11 +47,11 @@ This repository deliberately **does not redistribute** the original code or bank
 ## Repository contents
 
 - [`results/`](results) — full observed MCC/accuracy values (three configurations; two 5-seed pilot designs).
-- [`figures/`](figures) — publication-style summary graphics.
+- [`figures/`](figures) — readable vector figures of both comparisons.
 - [`scripts/plot_results.py`](scripts/plot_results.py) — regenerate the figures using the included summary CSVs.
 - [`scripts/validate_results.py`](scripts/validate_results.py) — check the tabular completeness and consistency of the reported study.
 - [`src/unique_edge_dataset.py`](src/unique_edge_dataset.py) — small original subclass for exact unique-edge removal, importing the upstream dataset class.
-- [`notebooks/edge_ablation_reproduction.ipynb`](notebooks/edge_ablation_reproduction.ipynb) — an optional rerun notebook; requires original implementation and raw data **stored separately**.
+- [`notebooks/edge_ablation_analysis.ipynb`](notebooks/edge_ablation_analysis.ipynb) — a runnable notebook that independently computes summary statistics and plots from the recorded CSVs; it does **not** retrain GraphSAGE.
 - [`METHODOLOGY.md`](METHODOLOGY.md) — evaluation protocol and limitations.
 
 ## Regenerate figures and validate the included results (no PyTorch needed)
@@ -64,17 +66,15 @@ python scripts/validate_results.py
 python scripts/plot_results.py
 ```
 
-## Re-run the training notebook (optional; more dependencies and data needed)
+## Explore the results in Jupyter (no training required)
 
-Clone the original project **as a sibling of this repository**:
+Run `jupyter lab` with the lightweight dependencies above and open [`notebooks/edge_ablation_analysis.ipynb`](notebooks/edge_ablation_analysis.ipynb). This notebook reads the included CSVs, checks their completeness, calculates across-seed mean and sample SD, and plots comparisons. Jupyter itself may need to be installed separately (`python -m pip install jupyterlab`).
 
-```bash
-git clone https://github.com/vibalcam/gnn-systemic-risk.git ../gnn-systemic-risk
-```
+## Reproduce model training (requires the original research implementation)
 
-Install PyTorch and DGL in a compatible environment, plus the original project's dependencies. The experiment was run with Python 3.9 and CPU-oriented PyTorch 2.2.1 / DGL 2.1.0. Ensure the upstream dataset's `notebooks/europe_network/data/nodes.csv` and `network.csv` exist; they are **not supplied** in this repository. Then open [`notebooks/edge_ablation_reproduction.ipynb`](notebooks/edge_ablation_reproduction.ipynb) with Jupyter using the same environment. The notebook writes model checkpoints and results into `local_outputs/` (gitignored).
+The recorded results originated from experiments run in a separate local checkout of [the original repository](https://github.com/vibalcam/gnn-systemic-risk). The upstream implementation, banking-network data, and saved model checkpoints are **not included** in this portfolio. The [unique-edge sampling extension](src/unique_edge_dataset.py) imports the original `models.utils.ContagionDataset` class; it therefore requires the upstream code and a compatible PyTorch/DGL environment. See [METHODOLOGY.md](METHODOLOGY.md) for the experiment design.
 
-This reproduction notebook has been **statically checked but not executed in this isolated upload package**. The numerical results above come from the user's completed, separately executed five-seed notebook and CSVs; do not mistake them for newly reproduced results from this notebook.
+**Scope:** The analysis notebook and plotting/validation scripts are reproducible from the files here, but the full training runs cannot be reproduced from this repository alone. They have not been rerun as part of publishing this GitHub companion.
 
 ## Important limitations
 
